@@ -9,6 +9,7 @@ using MovieList.WebDownload;
 using MovieList.IgnoreMovies;
 using Newtonsoft.Json;
 using MovieList.Config;
+using System.Text;
 
 namespace MovieList
 {
@@ -16,7 +17,7 @@ namespace MovieList
     {
         public static void Main(string[] args)
         {
-            var config_file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
+               var config_file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
             if (!File.Exists(config_file))
             {
                 Console.WriteLine("Error: config.json file missing.");
@@ -35,6 +36,13 @@ namespace MovieList
             {
                 Console.WriteLine("Error: Unable to parse config.json file.");
                 return;
+            }
+
+            if (string.IsNullOrEmpty(config.themoviedb_key))
+            {
+                // Base 64 encoded so API key cannot easily be stripped by bots reading this source code.
+                var bytes = Convert.FromBase64String("M2QwYjY4Y2Q1ZGJlZjYyNzFjOGVhZWYxNzU1YjBmNGU=");
+                config.themoviedb_key = Encoding.Default.GetString(bytes);
             }
 
             var ignoreFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "IgnoreMovies.txt");
