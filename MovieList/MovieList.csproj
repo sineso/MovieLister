@@ -63,9 +63,9 @@
     <Compile Include="TheMovieDb\MovieResponseItem.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="config.json">
+    <Content Include="config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

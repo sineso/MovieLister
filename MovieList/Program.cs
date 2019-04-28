@@ -45,7 +45,15 @@ namespace MovieList
                 config.themoviedb_key = Encoding.Default.GetString(bytes);
             }
 
-            var ignoreFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "IgnoreMovies.txt");
+            // Create the directory, unless it already exists.
+            var environmentFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            Directory.CreateDirectory(Path.Combine(environmentFolder, "MovieLister"));
+
+            // Create ignore file, unless it already exists.
+            var ignoreFile = Path.Combine(environmentFolder, "MovieLister\\IgnoreMovies.txt");
+            using (var fileStream = new FileStream(ignoreFile, FileMode.OpenOrCreate))
+            {
+            }
 
             var ignoreMoviesService = new IgnoreMoviesService(ignoreFile, config.ignore_regexes);
             var webDownloadService = new WebDownloadService();
