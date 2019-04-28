@@ -14,11 +14,7 @@ namespace MovieList
         public string Overview { get; set; }
         public string Title { get; internal set; }
 
-
-
-
-
-        internal string print()
+        public string Print()
         {
             var text = Title;
 
@@ -36,12 +32,12 @@ namespace MovieList
                 text = "[?] " + text;
             }
 
-            System.Console.WriteLine("========================================================");
-            System.Console.WriteLine(text);
+            Console.WriteLine("========================================================");
+            Console.WriteLine(text);
 
             if (!string.IsNullOrEmpty(Overview))
             {
-                System.Console.WriteLine("\n" + string.Concat(Overview.Take(500)));
+                Console.WriteLine("\n" + string.Concat(Overview.Take(500)));
             }
 
             return text;

@@ -45,19 +45,9 @@ namespace MovieList
                 config.themoviedb_key = Encoding.Default.GetString(bytes);
             }
 
-            // Create the directory, unless it already exists.
-            var environmentFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            Directory.CreateDirectory(Path.Combine(environmentFolder, "MovieLister"));
-
-            // Create ignore file, unless it already exists.
-            var ignoreFile = Path.Combine(environmentFolder, "MovieLister\\IgnoreMovies.txt");
-            using (var fileStream = new FileStream(ignoreFile, FileMode.OpenOrCreate))
-            {
-            }
-
-            var ignoreMoviesService = new IgnoreMoviesService(ignoreFile, config.ignore_regexes);
             var webDownloadService = new WebDownloadService();
             var movieTextParserService = new MovieTextParserService();
+            var ignoreMoviesService = new IgnoreMoviesService(movieTextParserService, config.ignore_regexes);
             var pirateBayService = new PirateBayService(webDownloadService, movieTextParserService, config.piratebay_url, config.piratebay_regex);
 
             int startPage = 1;
@@ -98,6 +88,8 @@ namespace MovieList
 
             // Sort by rating and take the top 5.
             movies = movies
+                .GroupBy(x => new { x.Title, x.Year })
+                .Select(x => x.First())
                 .OrderByDescending(x => x.Rating)
                 .Take(5)
                 .ToList();
@@ -105,7 +97,7 @@ namespace MovieList
             // Print the results.
             foreach (var movie in movies)
             {
-                movie.print();
+                movie.Print();
                 Console.WriteLine();
             }
         }     

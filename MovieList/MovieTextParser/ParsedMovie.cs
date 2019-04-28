@@ -11,5 +11,20 @@ namespace MovieList.MovieTextParser
         public string OriginalText { get; set; }
         public string Title { get; set; }
         public string Year { get; set; }
+
+        /// <summary>
+        /// A simple string representation of this movie.
+        /// </summary>
+        public string SimpleString()
+        {
+            var text = Title;
+
+            if (!string.IsNullOrEmpty(Year))
+            {
+                text += " (" + Year + ")";
+            }
+
+            return text;
+        }
     }
 }
