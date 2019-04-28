@@ -1,0 +1,21 @@
+﻿{
+  // A link to the pirate bay page you want to get torrents from.
+  "piratebay_url": "https://thepiratebay10.org/browse/207/{0}/7",
+
+  // The regex that should be used to strip torrent titles from the page.
+  "piratebay_regex": "class=\\\"detLink\\\" title\\=\\\".+\\\"\\>(?<title>.+)\\<",
+
+  // A list of regexes used to ignore torrent titles.
+  "ignore_regexes": [
+    // Ignore titles with CAM or HDCAM in the title.
+    "[^a-z0-9]((CAM)|(HDCAM))[^a-z0-9]"
+  ],
+
+  // API used to download movie information from TheMovieDb.
+  "themoviedb_url": "https://api.themoviedb.org/3/search/movie?api_key={0}&language=en-US&query={1}&page=1&include_adult=false&year={2}",
+
+  // API Key used to access TheMovieDb.
+  // If blank, will attempt to use a default key.
+  // If the default key is not working, you can sign up for a free key and paste it here.
+  "themoviedb_key": ""
+}
