@@ -1,9 +1,9 @@
 # MovieLister
 MovieLister is a console program to help you quickly identify new DVD releases available to torrent.
 
-To see a list of movies, use "movielister" from the command line.
+To see a list of movies, use "movielist" from the command line.
 
-Use "movielister ignore [Name]" to ignore a movie. It will never be displayed again.
+Use "movielist ignore [Name]" to ignore a movie. It will never be displayed again.
 
 ![Screenshot](https://i.imgur.com/KwsQavf.png)
 
