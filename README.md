@@ -1,5 +1,7 @@
 # MovieLister
-MovieLister is a console program to help you quickly identify new DVD releases available to torrent.
+MovieLister is a console program to help you quickly identify new DVD releases. 
+
+It searches ThePirateBay for the most seeded HD movies that are not on your ignore list.
 
 To see a list of movies, use "movielist" from the command line.
 
