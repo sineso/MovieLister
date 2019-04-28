@@ -1,6 +1,10 @@
+MovieList.Setup\Debug
+MovieList.Setup\Release
 [Oo]bj
 [Bb]in
 [Tt]humbs.db
+[Dd]ebug
+[Rr]elease
 packages
 .vs
 *.user
