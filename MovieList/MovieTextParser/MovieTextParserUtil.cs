@@ -34,7 +34,7 @@ namespace MovieList.MovieTextParser
                 if (index > -1)
                 {
                     torrentMovieName = torrentMovieName.Substring(0, index);
-                    return _CleanString(torrentMovieName);
+                    return CleanString(torrentMovieName);
                 }
             }
 
@@ -43,7 +43,7 @@ namespace MovieList.MovieTextParser
             var match = regex.Match(torrentMovieName);
             if (match.Success)
             {
-                return _CleanString(match.Groups["title"].Value);
+                return CleanString(match.Groups["title"].Value);
             }
 
             // Attempt 3 - Assume the name is everything up to the first 2 digit or more number.
@@ -51,11 +51,11 @@ namespace MovieList.MovieTextParser
             match = regex.Match(torrentMovieName);
             if (match.Success)
             {
-                return _CleanString(match.Groups["title"].Value);
+                return CleanString(match.Groups["title"].Value);
             }
 
             // Attempt 4 = Assume the movie name is the entire string.
-            return _CleanString(torrentMovieName);
+            return CleanString(torrentMovieName);
         }
 
         /// <summary>
@@ -92,9 +92,9 @@ namespace MovieList.MovieTextParser
         /// Strip non-alphanumeric characters from the specified string.
         /// Condense whitespace to maximum of one space.
         /// </summary>
-        private static string _CleanString(string text)
+        public static string CleanString(string text)
         {
-            text = Regex.Replace(text, @"[^\w\d]", " ");
+            text = Regex.Replace(text, @"[^a-zA-Z0-9]", " ");
             text = Regex.Replace(text, @"\s+", " ");
             text = text.ToLower().Trim();
 

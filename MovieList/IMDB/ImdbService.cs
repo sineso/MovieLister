@@ -59,7 +59,9 @@ namespace MovieList.IMDB
 
                 if (match.Success)
                 {
-                    var title = match.Groups["title"].Value.ToLower().Trim();
+                    var title = match.Groups["title"].Value;
+                    title = MovieTextParserUtil.CleanString(title);
+
                     var year = match.Groups["year"].Value.ToLower().Trim();
 
                     movies.Add(new ParsedMovie()
