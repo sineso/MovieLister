@@ -34,12 +34,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_915A13BADC486933B82FA71B1C8775EC"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_FB2444BDFAE647FAA1CB19F87DB6B465"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -47,6 +41,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_8E4EBF6782FB76A1625DCDF48312FBF1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_915A13BADC486933B82FA71B1C8775EC"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -57,7 +57,7 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Debug\\MovieList.Setup.msi"
+        "OutputFilename" = "8:Debug\\Setup.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -67,6 +67,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -83,6 +99,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -231,7 +255,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MovieLister"
         "ProductCode" = "8:{6CA5C307-7DAE-4B2D-A75B-F5E1AFF3E9B7}"
-        "PackageCode" = "8:{10DE9467-1F5A-4956-98F0-855BF50A1C51}"
+        "PackageCode" = "8:{A89CFD9C-4ADA-404E-A6F6-F6483AE5F46B}"
         "UpgradeCode" = "8:{62398837-1D0C-48EC-8535-27EB3B3CA0E4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -780,7 +804,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_FB2444BDFAE647FAA1CB19F87DB6B465"
             {
-            "SourcePath" = "8:..\\MovieList\\obj\\Release\\MovieList.exe"
+            "SourcePath" = "8:..\\MovieList\\obj\\Debug\\MovieList.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8A43E6191FB945ECA627B34E5C52580F"
