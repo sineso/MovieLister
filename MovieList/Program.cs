@@ -17,14 +17,14 @@ namespace MovieList
     {
         public static void Main(string[] args)
         {
-               var config_file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
+            var config_file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
             if (!File.Exists(config_file))
             {
                 Console.WriteLine("Error: config.json file missing.");
                 return;
             }
 
-            var config_lines= File.ReadAllLines(config_file);
+            var config_lines = File.ReadAllLines(config_file);
 
             // Remove comments.
             var config_contents = config_lines
@@ -57,6 +57,12 @@ namespace MovieList
             {
                 var name = string.Join(" ", args.Skip(1)).Trim();
                 ignoreMoviesService.AddIgnoredMovie(name);
+                return;
+            }
+
+            if (args.Length > 0 && args[0].ToUpper() == "IGNORED")
+            {
+                ignoreMoviesService.PrintIgnored();
                 return;
             }
 
@@ -100,11 +106,11 @@ namespace MovieList
                 movie.Print();
                 Console.WriteLine();
             }
-        }     
+        }
 
         private static List<Movie> GetMovies(TheMovieDbService theMovieDbService, List<ParsedMovie> parsedMovies)
         {
-            Console.Write("Downloading ");
+            Console.Write("\nDownloading ");
 
             var movies = new List<Movie>();
             foreach (var parsedMovie in parsedMovies)

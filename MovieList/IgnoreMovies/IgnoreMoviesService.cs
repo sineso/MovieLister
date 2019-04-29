@@ -76,6 +76,23 @@ namespace MovieList.IgnoreMovies
             {
                 File.AppendAllLines(this.filePath, new string[] { simpleString });
             }
+
+            Console.WriteLine("\n  Added '" + simpleString + "' to ignore file.");
+            Console.WriteLine("  " + this.filePath);
+        }
+
+        public void PrintIgnored()
+        {
+            var ignoreMovies = this.GetIgnoredMovies();
+
+            Console.WriteLine("\n  Ignored Movies:\n");
+
+            int x = 0;
+            foreach (var ignoredMovie in ignoreMovies)
+            {
+                x++;
+                Console.WriteLine("  " + x + ") " + ignoredMovie.SimpleString());
+            }
         }
 
         public List<ParsedMovie> GetIgnoredMovies()

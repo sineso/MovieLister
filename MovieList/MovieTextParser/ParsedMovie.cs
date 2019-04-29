@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,9 @@ namespace MovieList.MovieTextParser
         public string SimpleString()
         {
             var text = Title;
+
+            var textInfo = new CultureInfo("en-US", false).TextInfo;
+            text = textInfo.ToTitleCase(text);
 
             if (!string.IsNullOrEmpty(Year))
             {
