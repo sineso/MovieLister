@@ -1,4 +1,3 @@
-# MovieLister
 MovieLister is a console program to help you quickly identify new DVD releases. 
 
 It searches ThePirateBay and IMDB for new releases not on your ignore list.
