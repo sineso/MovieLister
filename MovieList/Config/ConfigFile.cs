@@ -8,6 +8,8 @@ namespace MovieList.Config
 {
     public class ConfigFile
     {
+        
+        public ImdbConfig imdb { get; set; }
         public PirateBayConfig piratebay { get; set; }
         public string themoviedb_url { get; set; }
         public string themoviedb_key { get; set; }

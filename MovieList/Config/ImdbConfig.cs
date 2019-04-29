@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace MovieList.Config
 {
-    public class PirateBayConfig
+    public class ImdbConfig
     {
         public bool enable { get; set; }
-        public string regex { get; set; }
-        public List<string> urls { get; set; }
+        public string url { get; set; }
     }
 }

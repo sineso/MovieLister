@@ -48,8 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\ConfigFile.cs" />
+    <Compile Include="Config\ImdbConfig.cs" />
     <Compile Include="Config\PirateBayConfig.cs" />
     <Compile Include="IgnoreMovies\IgnoreMoviesService.cs" />
+    <Compile Include="IMDB\ImdbService.cs" />
     <Compile Include="Movie.cs" />
     <Compile Include="MovieTextParser\MovieTextParserService.cs" />
     <Compile Include="MovieTextParser\MovieTextRegularExpressions.cs" />

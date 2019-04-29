@@ -1,5 +1,15 @@
 ﻿{
+  "imdb": {
+
+    "enable": true,
+
+    // IMDB - New and Recent DVD/Blu-ray Releases, must have 5k+ votes and user rating >= 6.0
+    "url": "https://www.imdb.com/list/ls016522954/?sort=moviemeter,asc&st_dt=&mode=detail&page=1&title_type=movie&user_rating=6.0%2C&num_votes=5000%2C&ref_=ttls_ref_rt_vt"
+  },
+
   "piratebay": {
+
+    "enable": true,
 
     // The regex that should be used to strip movies titles from the page.
     "regex": "class=\\\"detLink\\\" title\\=\\\".+\\\"\\>(?<title>.+)\\<",

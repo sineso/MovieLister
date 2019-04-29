@@ -96,7 +96,7 @@ namespace MovieList.MovieTextParser
         {
             text = Regex.Replace(text, @"[^\w\d]", " ");
             text = Regex.Replace(text, @"\s+", " ");
-            text = text.Trim();
+            text = text.ToLower().Trim();
 
             return text;
         }

@@ -10,6 +10,7 @@ using MovieList.IgnoreMovies;
 using Newtonsoft.Json;
 using MovieList.Config;
 using System.Text;
+using MovieList.IMDB;
 
 namespace MovieList
 {
@@ -49,6 +50,7 @@ namespace MovieList
             var movieTextParserService = new MovieTextParserService();
             var ignoreMoviesService = new IgnoreMoviesService(movieTextParserService, config.ignore_regexes);
             var pirateBayService = new PirateBayService(webDownloadService, movieTextParserService, config);
+            var imdbService = new ImdbService(webDownloadService, config);
 
             int startPage = 1;
             int pages = 3;
@@ -75,10 +77,31 @@ namespace MovieList
                 }
             }
 
+            var parsedMovies = new List<ParsedMovie>();
+
             // Get the most seeded movies from the Pirate Bay listing.
-            Console.Write("\n  Scraping movie titles... ");
-            var parsedMovies = pirateBayService.GetMostSeededMovies(startPage, pages);
-            Console.Write(parsedMovies.Count() + " found");
+            if (config.imdb.enable)
+            {
+                Console.Write("\n  Scraping PirateBay titles... ");
+                var pirateMovies = pirateBayService.GetMostSeededMovies(startPage, pages);
+                Console.Write(pirateMovies.Count() + " found");
+                parsedMovies.AddRange(pirateMovies);
+            }
+
+            // Get recent DVD released from IMDB.
+            if (config.imdb.enable)
+            {
+                Console.Write("\n  Scraping IMDB new DVD Releases ... ");
+                var imdbMovies = imdbService.GetTitles();
+                Console.Write(imdbMovies.Count() + " found");
+                parsedMovies.AddRange(imdbMovies);
+            }
+
+            // Ensure the list is distinct.
+            parsedMovies = parsedMovies
+                .GroupBy(x => new { x.Title, x.Year })
+                .Select(x => x.First())
+                .ToList();
 
             // Strip out all movies the user has chosen to ignore.
             parsedMovies = ignoreMoviesService.StripIgnoredMovies(parsedMovies);
