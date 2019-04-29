@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using MovieList.Config;
 using System.Text;
 using MovieList.IMDB;
+using System.Threading.Tasks;
 
 namespace MovieList
 {
@@ -117,8 +118,8 @@ namespace MovieList
             parsedMovies = ignoreMoviesService.StripIgnoredMovies(parsedMovies);
             Console.WriteLine("\n  Removing ignored movies... " + parsedMovies.Count() + " remaining");
 
-            // Limit the movie list to 15.
-            parsedMovies = parsedMovies.Take(15).ToList();
+            // Limit the movie list to 20.
+            parsedMovies = parsedMovies.Take(20).ToList();
 
             // Use TheMovieDb API to get information about these movies.
             var theMovieDbService = new TheMovieDbService(webDownloadService, config.themoviedb_url, config.themoviedb_key);
@@ -148,28 +149,35 @@ namespace MovieList
 
         private static List<Movie> GetMovies(TheMovieDbService theMovieDbService, List<ParsedMovie> parsedMovies)
         {
-            Console.Write("  Fetching metadata");
+            Console.Write("  Fetching metadata...");
 
             var movies = new List<Movie>();
-            foreach (var parsedMovie in parsedMovies)
-            {
-                var responseMovie = theMovieDbService.GetMovie(parsedMovie.Title, parsedMovie.Year);
-                Console.Write(".");
 
-                if (responseMovie == null)
-                {
-                    continue;
-                }
+            var lockObj = new object();
+            var options = new ParallelOptions { MaxDegreeOfParallelism = 4 };
 
-                movies.Add(new Movie()
-                {
-                    OriginalTitle = parsedMovie.Title,
-                    Title = responseMovie.title,
-                    Rating = responseMovie.vote_average,
-                    Year = string.Concat(responseMovie.release_date.Take(4)),
-                    Overview = responseMovie.overview
-                });
-            }
+            // Download movie info in parallel.
+            Parallel.ForEach<ParsedMovie>(parsedMovies, options, parsedMovie =>
+           {
+               var responseMovie = theMovieDbService.GetMovie(parsedMovie.Title, parsedMovie.Year);
+
+               if (responseMovie == null)
+               {
+                   return;
+               }
+
+               lock (lockObj)
+               {
+                   movies.Add(new Movie()
+                   {
+                       OriginalTitle = parsedMovie.Title,
+                       Title = responseMovie.title,
+                       Rating = responseMovie.vote_average,
+                       Year = string.Concat(responseMovie.release_date.Take(4)),
+                       Overview = responseMovie.overview
+                   });
+               }
+           });
 
             Console.WriteLine();
 
