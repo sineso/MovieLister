@@ -158,7 +158,7 @@ namespace MovieList.IgnoreMovies
                     }
                 }
 
-                if (ignore.Title.StartsWith(title))
+                if (title.StartsWith(ignore.Title))
                 {
                     return true;
                 }
