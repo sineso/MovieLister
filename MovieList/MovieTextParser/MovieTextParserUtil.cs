@@ -94,6 +94,7 @@ namespace MovieList.MovieTextParser
         /// </summary>
         public static string CleanString(string text)
         {
+            text = text.Replace("\'", "");
             text = Regex.Replace(text, @"[^a-zA-Z0-9]", " ");
             text = Regex.Replace(text, @"\s+", " ");
             text = text.ToLower().Trim();
