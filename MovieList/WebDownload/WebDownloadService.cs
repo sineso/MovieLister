@@ -12,9 +12,11 @@ namespace MovieList.WebDownload
     {
         public string DownloadPage(string url)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            request.Timeout = 2000;
+            request.ReadWriteTimeout = 2000;
 
+            var response = (HttpWebResponse)request.GetResponse();
             if (response.StatusCode != HttpStatusCode.OK)
             {
                 return string.Empty;
