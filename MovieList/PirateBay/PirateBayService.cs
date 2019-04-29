@@ -1,4 +1,5 @@
-﻿using MovieList.MovieTextParser;
+﻿using MovieList.Config;
+using MovieList.MovieTextParser;
 using MovieList.WebDownload;
 using System;
 using System.Collections.Generic;
@@ -15,19 +16,22 @@ namespace MovieList.PirateBay
         private WebDownloadService webDownloadService;
         private MovieTextParserService movieTextParserService;
 
-        private string piratebayUrl;
+        private int currentUrlIndex = 0;
+        private List<string> piratebayUrls;
         private Regex movieTitle;
 
-        public PirateBayService(WebDownloadService webDownloadService, MovieTextParserService movieTextParserService, string piratebay_url, string piratebay_regex)
+        public PirateBayService(WebDownloadService webDownloadService, MovieTextParserService movieTextParserService, ConfigFile config)
         {
             this.webDownloadService = webDownloadService;
             this.movieTextParserService = movieTextParserService;
-            this.piratebayUrl = piratebay_url;
-            this.movieTitle = new Regex(piratebay_regex);
+            this.piratebayUrls = config.piratebay.urls;
+            this.movieTitle = new Regex(config.piratebay.regex);
         }
 
         public List<ParsedMovie> GetMostSeededMovies(int startPage = 1, int pages = 3)
         {
+            this.currentUrlIndex = 0;
+
             var movies = new List<ParsedMovie>();
 
             for (int x = 0; x < pages; x++)
@@ -65,9 +69,34 @@ namespace MovieList.PirateBay
 
         private List<ParsedMovie> StripPage(int page)
         {
-            // Format the pirateBay url.
-            var url = string.Format(piratebayUrl, page);
+            // Loop through mirrors until one successfully grabs the page.
+            while (true)
+            {
+                if (this.currentUrlIndex >= this.piratebayUrls.Count())
+                {
+                    // Out of mirrors to test.
+                    Console.WriteLine("No more mirrors to check.");
+                    return new List<ParsedMovie>();
+                }
 
+                var url = this.piratebayUrls[this.currentUrlIndex];
+                var url_formatted = string.Format(url, page);
+
+                try
+                {
+                    var movies = _StripPage(url_formatted);
+                    return movies;
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine(url_formatted + " failed, attempting next mirror.");
+                    this.currentUrlIndex++;
+                }
+            }
+        }
+
+        private List<ParsedMovie> _StripPage(string url)
+        {
             // Download the HTML.
             var html = this.webDownloadService.DownloadPage(url);
 
@@ -96,13 +125,13 @@ namespace MovieList.PirateBay
                 return;
             }
 
-            if (loopCount % 3 == 0)
-            {
-                // PirateBay limits to approximently 3 pages per second.
-                // Do a big sleep on 4, 7, 10, etc.
-                Thread.Sleep(1100);
-                return;
-            }
+            //if (loopCount % 3 == 0)
+            //{
+            //    // PirateBay limits to approximently 3 pages per second.
+            //    // Do a big sleep on 4, 7, 10, etc.
+            //    Thread.Sleep(1100);
+            //    return;
+            //}
 
             // Sleep a bit for each request after the first.
             Thread.Sleep(150);

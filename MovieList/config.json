@@ -1,9 +1,17 @@
 ﻿{
-  // A link to the pirate bay page you want to get torrents from.
-  "piratebay_url": "https://thepiratebay10.org/browse/207/{0}/7",
+  "piratebay": {
 
-  // The regex that should be used to strip torrent titles from the page.
-  "piratebay_regex": "class=\\\"detLink\\\" title\\=\\\".+\\\"\\>(?<title>.+)\\<",
+    // The regex that should be used to strip movies titles from the page.
+    "regex": "class=\\\"detLink\\\" title\\=\\\".+\\\"\\>(?<title>.+)\\<",
+
+    // One or more urls. If the first fails, the following will be checked.
+    "urls": [
+      "https://thepiratebay10.org/browse/207/{0}/7/0",
+      "https://tpb4.ukpass.co/browse/207/{0}/7/0",
+      "https://thepiratebay.tips/browse/207/{0}/7/0",
+      "https://thepiratebay.vip/browse/207/{0}/7/0"
+    ]
+  },
 
   // A list of regexes used to ignore torrent titles.
   "ignore_regexes": [

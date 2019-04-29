@@ -48,7 +48,7 @@ namespace MovieList
             var webDownloadService = new WebDownloadService();
             var movieTextParserService = new MovieTextParserService();
             var ignoreMoviesService = new IgnoreMoviesService(movieTextParserService, config.ignore_regexes);
-            var pirateBayService = new PirateBayService(webDownloadService, movieTextParserService, config.piratebay_url, config.piratebay_regex);
+            var pirateBayService = new PirateBayService(webDownloadService, movieTextParserService, config);
 
             int startPage = 1;
             int pages = 3;
@@ -76,10 +76,13 @@ namespace MovieList
             }
 
             // Get the most seeded movies from the Pirate Bay listing.
+            Console.Write("\n  Scraping movie titles... ");
             var parsedMovies = pirateBayService.GetMostSeededMovies(startPage, pages);
+            Console.Write(parsedMovies.Count() + " found");
 
             // Strip out all movies the user has chosen to ignore.
             parsedMovies = ignoreMoviesService.StripIgnoredMovies(parsedMovies);
+            Console.WriteLine("\n  Removing ignored movies... " + parsedMovies.Count() + " remaining");
 
             // Limit the movie list to 15.
             parsedMovies = parsedMovies.Take(15).ToList();
@@ -103,14 +106,16 @@ namespace MovieList
             // Print the results.
             foreach (var movie in movies)
             {
-                movie.Print();
                 Console.WriteLine();
+                movie.Print();
             }
+
+            Console.WriteLine();
         }
 
         private static List<Movie> GetMovies(TheMovieDbService theMovieDbService, List<ParsedMovie> parsedMovies)
         {
-            Console.Write("\nDownloading ");
+            Console.Write("  Fetching metadata ");
 
             var movies = new List<Movie>();
             foreach (var parsedMovie in parsedMovies)

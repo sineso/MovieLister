@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\ConfigFile.cs" />
+    <Compile Include="Config\PirateBayConfig.cs" />
     <Compile Include="IgnoreMovies\IgnoreMoviesService.cs" />
     <Compile Include="Movie.cs" />
     <Compile Include="MovieTextParser\MovieTextParserService.cs" />
