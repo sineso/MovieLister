@@ -20,49 +20,49 @@ namespace MovieList.Test.MovieTextParser
             testCases.Add(Tuple.Create
             (
                 "Glass.2019.1080p.WEBRip.x264-MP4p",
-                "Glass"
+                "glass"
             ));
 
             testCases.Add(Tuple.Create
             (
                 "How.To.Train.Your.Dragon.The.Hidden.World.2019.1080p.BRRip.x264",
-                "How To Train Your Dragon The Hidden World"
+                "how to train your dragon the hidden world"
             ));
 
             testCases.Add(Tuple.Create
             (
                 "Avengers Endgame 2019 English 720p HDCAM V3 x264 2.7GB[MB]",
-                "Avengers Endgame"
+                "avengers endgame"
             ));
 
             testCases.Add(Tuple.Create
             (
                 "Avengers: Age of Ultron(2015) 1080p BrRip x264 - YIFY",
-                "Avengers Age of Ultron"
+                "avengers age of ultron"
             ));
 
             testCases.Add(Tuple.Create
             (
                 "Avengers: Age of Ultron 1080p BrRip x264 - YIFY",
-                "Avengers Age of Ultron"
+                "avengers age of ultron"
             ));
 
             testCases.Add(Tuple.Create
             (
                 "Avengers: Age of Ultron [x264]",
-                "Avengers Age of Ultron"
+                "avengers age of ultron"
             ));
 
             testCases.Add(Tuple.Create
             (
                 "Avengers - Age of Ultron 2015",
-                "Avengers Age of Ultron"
+                "avengers age of ultron"
             ));
 
             testCases.Add(Tuple.Create
             (
                 "Avengers Age of Ultron (720p)",
-                "Avengers Age of Ultron"
+                "avengers age of ultron"
             ));
 
             foreach (var testCase in testCases)

@@ -27,7 +27,7 @@ namespace MovieList.Test.IMDB
             var page = string.Concat(File.ReadAllLines("ImdbSample.html").ToList());
             var movies = imdbService.StripMovieNamesFromHtml(page);
 
-            Assert.AreEqual(page, page);
+            Assert.AreEqual(4, movies.Count);
         }
     }
 }
