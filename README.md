@@ -3,11 +3,10 @@ MovieLister is a console program to help you quickly identify new DVD releases.
 
 It searches ThePirateBay and IMDB for new releases not on your ignore list.
 
+Commands:
 - To see a list of movies, use "movielist" from the command line.
 - To ignore a movie, use "movielist ignore [Name]". It will never be displayed again.
 - Use "movielist ignored" to see a list of ignored movies.
-
-Ignored movies are saved to AppData: '%AppData%\MovieLister\IgnoredMovies.txt' which can be edited manually.
 
 ![Screenshot](https://i.imgur.com/KwsQavf.png)
 
@@ -21,6 +20,8 @@ Ignore Movies:
 * Year is also not requred, but will help make the filter more specific.
 
 Example: "Spider-Man (2002)", "Spider-Man", and "Spider (2002)", all filter Spider-Man (2002).
+
+Ignored movies are saved to AppData: '%AppData%\MovieLister\IgnoredMovies.txt' which can be edited manually.
 
 # How it works
 1) Retrieves a list of the most-seeded torrents from piratebay (source can be changed in config.json).
