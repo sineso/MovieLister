@@ -30,6 +30,6 @@ namespace MovieList.MovieTextParser
         public static Regex titleUpToBrackets = new Regex(@"^(?<title>.+)[\[\(]+");
 
         // Match the title by including text up to the first two or more digit number.
-        public static Regex titleUpToNumber = new Regex(@"^(?![0-9]{2})(?<title>[^0-9]+)");
+        public static Regex titleUpToNumber = new Regex(@"^(?![0-9]{2})(?<title>[^0-9]+)([0-9]{2})");
     }
 }
