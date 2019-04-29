@@ -13,8 +13,8 @@ namespace MovieList.WebDownload
         public string DownloadPage(string url)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Timeout = 2000;
-            request.ReadWriteTimeout = 2000;
+            request.Timeout = 5000;
+            request.ReadWriteTimeout = 5000;
 
             var response = (HttpWebResponse)request.GetResponse();
             if (response.StatusCode != HttpStatusCode.OK)

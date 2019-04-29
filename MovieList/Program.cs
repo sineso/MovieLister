@@ -82,7 +82,7 @@ namespace MovieList
             // Get the most seeded movies from the Pirate Bay listing.
             if (config.imdb.enable)
             {
-                Console.Write("\n  Scraping PirateBay titles... ");
+                Console.Write("\n  Scraping PirateBay for top seeded torrents... ");
                 var pirateMovies = pirateBayService.GetMostSeededMovies(startPage, pages);
                 Console.Write(pirateMovies.Count() + " found");
                 parsedMovies.AddRange(pirateMovies);
@@ -91,10 +91,20 @@ namespace MovieList
             // Get recent DVD released from IMDB.
             if (config.imdb.enable)
             {
-                Console.Write("\n  Scraping IMDB new DVD Releases ... ");
-                var imdbMovies = imdbService.GetTitles();
-                Console.Write(imdbMovies.Count() + " found");
-                parsedMovies.AddRange(imdbMovies);
+                Console.Write("\n  Scraping IMDB for new DVD Releases... ");
+
+                try
+                {
+                    var imdbMovies = imdbService.GetTitles();
+                    Console.Write(imdbMovies.Count() + " found");
+                    parsedMovies.AddRange(imdbMovies);
+
+                }
+                catch (Exception ex)
+                {
+                    Console.Write("failed");
+                    Console.WriteLine(ex.ToString());
+                }
             }
 
             // Ensure the list is distinct.
@@ -138,7 +148,7 @@ namespace MovieList
 
         private static List<Movie> GetMovies(TheMovieDbService theMovieDbService, List<ParsedMovie> parsedMovies)
         {
-            Console.Write("  Fetching metadata ");
+            Console.Write("  Fetching metadata");
 
             var movies = new List<Movie>();
             foreach (var parsedMovie in parsedMovies)
